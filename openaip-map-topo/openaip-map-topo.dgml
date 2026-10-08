@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgml xmlns="http://edu.kde.org/marble/dgml/2.0">
+  <document>
+    <head>
+      <name>OpenAIP Map - OpenTopoMap</name>
+      <target>earth</target>
+      <theme>openaip-map-topo</theme>
+      <visible>true</visible>
+      <description>
+	<![CDATA[
+          <p><b>OpenAIP VFR Overlay</b> — v1.0 (pre-release / beta)</p>
+          <p>Basemap: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p>
+          <p>Aeronautical data (TMS/MVT) source: © <a href="https://www.openaip.net">OpenAIP</a>
+            (https://www.openaip.net)</p>
+          <p><i>This is a beta version (v1.0). The OSM basemap used here is
+            temporary — a custom base map is planned for a future
+            release.</i></p>
+        ]]>
+      </description>
+      <zoom>
+        <discrete>true</discrete>
+        <minimum>900</minimum>
+        <maximum>3500</maximum>
+      </zoom>
+    </head>
+
+    <map bgcolor="#ffffff">
+      <canvas />
+      <target />
+
+      <layer name="openaip" backend="texture">
+
+        <!-- BASE -->
+        <texture name="base" expire="604800">
+          <sourcedir format="PNG">earth/openaip-map-topo</sourcedir>
+          <tileSize width="256" height="256" />
+          <storageLayout
+            levelZeroColumns="1"
+            levelZeroRows="1"
+            maximumTileLevel="19"
+            mode="Custom" />
+          <projection name="Mercator" />
+          <downloadUrl
+            protocol="https"
+            host="tile.opentopomap.org"
+            path="/{zoomLevel}/{x}/{y}.png" />
+          <downloadPolicy usage="Browse" maximumConnections="20" />
+        </texture>
+
+        <!-- OPENAIP -->
+        <texture name="aip" expire="5184000">
+          <sourcedir format="PNG">earth/openaip-map-topo/aip</sourcedir>
+          <tileSize width="256" height="256" />
+          <storageLayout
+            levelZeroColumns="1"
+            levelZeroRows="1"
+            maximumTileLevel="19"
+            mode="Custom" />
+          <projection name="Mercator" />
+          <downloadUrl
+            protocol="https"
+            host="api.tiles.openaip.net"
+            path="/api/data/openaip/{zoomLevel}/{x}/{y}.png?apiKey=94639f589d188a4ebc7a3d2838279ef3" />
+          <downloadPolicy usage="Browse" maximumConnections="4" />
+          <blending name="OverpaintBlending" />
+        </texture>
+
+      </layer>
+    </map>
+    <settings>
+      <property name="coordinate-grid">
+        <value>false</value>
+        <available>true</available>
+      </property>
+    </settings>
+  </document>
+</dgml>
